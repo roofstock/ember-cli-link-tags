@@ -1,0 +1,61 @@
+<!DOCTYPE html><html lang="en"><head><title>index</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="index"><meta name="groc-project-path" content="README.md"><meta name="groc-github-url" content="https://github.com/tomasbasham/ember-cli-link-tags"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/tomasbasham/ember-cli-link-tags/blob/master/README.md">README.md</a></div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="ember-cli-link-tags-build-status-https-travis-ci-org-tomasbasham-ember-cli-link-tags-svg-branch-master-https-travis-ci-org-tomasbasham-ember-cli-link-tags-">Ember-cli-link-tags <a href="https://travis-ci.org/tomasbasham/ember-cli-link-tags"><img src="https://travis-ci.org/tomasbasham/ember-cli-link-tags.svg?branch=master" alt="Build Status"></a></h1>
+<p>An <a href="http://www.ember-cli.com/">Ember CLI</a> addon to easily add <code>&lt;link&gt;</code> tags to the head of a HTML document.</p>
+<p>There may be many reasons to define a link between a HTML document and an internal or external resource. One reason is to provide search engines and SEO tools the best URL when there are several choices. This can occur for example when there are multiple variants of the same resource. This addon allows you to define these links statically or dynamically when transitioning between routes.</p>
+<p>This addon is ideal for use with SEO tools such as <a href="https://moz.com/">MOZ</a> to significantly improve impressions on Google and other search engines whilst reducing situations where content is mistakenly conceived as duplicate.</p>
+<h2 id="installation">Installation</h2>
+<p>From within your Ember CLI project directory run:</p>
+<pre><code>ember install ember-cli-link-tags</code></pre>
+<h2 id="usage">Usage</h2>
+<p>To use this addon you must include the <code>Linkable</code> mixin within the routes you intend to define links. The mixin allows you to define links in two ways; as a function that runs within the context of the route; or as a plain JavaScript object.</p>
+<h3 id="function">Function</h3>
+<p>Using this method to define link tags you must provide key/value paias of link attributes dynamically using the model defined on the route or any other attributes set on the controller. The <code>links</code> function returns a plain JavaScript object with the appropriate key/value pairs.</p>
+<h5 id="-a-name-method-example-a-example-"><a name="method-example"></a>Example:</h5>
+<pre><code class="lang-JavaScript"><span class="hljs-comment">// app/routes/posts.js</span>
+<span class="hljs-keyword">import</span> Ember <span class="hljs-keyword">from</span> <span class="hljs-string">'ember'</span>;
+<span class="hljs-keyword">import</span> Linkable <span class="hljs-keyword">from</span> <span class="hljs-string">'ember-cli-link-tags/mixins/linkable'</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Ember.Route.extend(Linkable, {
+  links: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">return</span> {
+      canonical: <span class="hljs-string">'/posts'</span>,
+      next: <span class="hljs-string">'/posts?page='</span> + <span class="hljs-keyword">this</span>.get(<span class="hljs-string">'controller.nextPage'</span>)
+    };
+  }
+});</code></pre>
+<p>This will add the <code>canonical</code> and <code>next</code> link tags to the head of the document. The value of <code>nextPage</code> is taken from the controller and appended to the end of the <code>next</code> value. Of course the key/value paris returned by the function can be whatever you want and application specific.</p>
+<h3 id="pojo">POJO</h3>
+<p>You may also use a plain JavaScript object to define purely static links.</p>
+<h5 id="-a-name-object-example-a-example-"><a name="object-example"></a>Example:</h5>
+<pre><code class="lang-JavaScript"><span class="hljs-comment">// app/routes/posts.js</span>
+<span class="hljs-keyword">import</span> Ember <span class="hljs-keyword">from</span> <span class="hljs-string">'ember'</span>;
+<span class="hljs-keyword">import</span> Linkable <span class="hljs-keyword">from</span> <span class="hljs-string">'ember-cli-link-tags/mixins/linkable'</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> Ember.Route.extend(Linkable, {
+  links: {
+    canonical: <span class="hljs-string">'/posts'</span>,
+    next: <span class="hljs-string">'/posts?page=2'</span>
+  }
+});</code></pre>
+<p>This will add the <code>canonical</code> and <code>next</code> link tags to the head of the document. The key/value pairs here are all static and defined before runtime. Of course the key/value paris can be whatever you want and application specific.</p>
+<h2 id="development">Development</h2>
+<h3 id="installation">Installation</h3>
+<ul>
+<li><code>git clone</code> this repository</li>
+<li><code>npm install</code></li>
+<li><code>bower install</code></li>
+</ul>
+<h3 id="running">Running</h3>
+<ul>
+<li><code>ember server</code></li>
+<li>Visit your app at <a href="http://localhost:4200">http://localhost:4200</a>.</li>
+</ul>
+<h3 id="running-tests">Running Tests</h3>
+<ul>
+<li><code>ember test</code></li>
+<li><code>ember test --server</code></li>
+</ul>
+<h3 id="building">Building</h3>
+<ul>
+<li><code>ember build</code></li>
+</ul>
+<p>For more information on using ember-cli, visit <a href="http://www.ember-cli.com/"><a href="http://www.ember-cli.com/">http://www.ember-cli.com/</a></a>.</p></div></div></div></div></body></html>
